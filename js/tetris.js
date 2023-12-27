@@ -63,12 +63,10 @@ function init() {
 }
 
 // keep the element moving down, creating new shapes and clearing lines
+var direction = 1;
 function tick() {
-    if ( valid( 0, 1 ) ) {
-        ++currentY;
-    }
     // if the element settled
-    else {
+    if (!valid(0,1)) {
         freeze();
         valid(0, 1);
         clearLines();
@@ -78,6 +76,15 @@ function tick() {
         }
         newShape();
     }
+    if (!valid(direction)) {
+        direction *= -1;
+    }
+    if (direction === 1) {
+        ++currentX;
+    } else if (direction === -1) {
+        --currentX;
+    }
+
 }
 
 // stop shape at its position and fix it to board
@@ -129,21 +136,6 @@ function clearLines() {
 
 function keyPress( key ) {
     switch ( key ) {
-        case 'left':
-            if ( valid( -1 ) ) {
-                --currentX;
-            }
-            break;
-        case 'right':
-            if ( valid( 1 ) ) {
-                ++currentX;
-            }
-            break;
-        case 'down':
-            if ( valid( 0, 1 ) ) {
-                ++currentY;
-            }
-            break;
         case 'rotate':
             var rotated = rotate( current );
             if ( valid( 0, 0, rotated ) ) {
@@ -154,6 +146,10 @@ function keyPress( key ) {
             while( valid(0, 1) ) {
                 ++currentY;
             }
+            console.log("dropping?")
+            clearInterval( interval );
+            var intervalLength = (Math.random() * 300) + 100; // up to 500
+            interval = setInterval( tick, intervalLength );
             tick();
             break;
     }
@@ -199,7 +195,7 @@ function newGame() {
     init();
     newShape();
     lose = false;
-    interval = setInterval( tick, 400 );
+    interval = setInterval( tick, 200 );
 }
 
 function clearAllIntervals(){
