@@ -1,4 +1,4 @@
-var COLS = 10, ROWS = 20;
+var COLS = 10, ROWS = 20, VIRTUAL_ROWS = 4;
 var board = [];
 var lose;
 var interval;
@@ -75,16 +75,16 @@ function tick() {
             return false;
         }
         newShape();
+    } else {
+        if (!valid(direction)) {
+            direction *= -1;
+        }
+        if (direction === 1) {
+            ++currentX;
+        } else if (direction === -1) {
+            --currentX;
+        }
     }
-    if (!valid(direction)) {
-        direction *= -1;
-    }
-    if (direction === 1) {
-        ++currentX;
-    } else if (direction === -1) {
-        --currentX;
-    }
-
 }
 
 // stop shape at its position and fix it to board
@@ -146,10 +146,8 @@ function keyPress( key ) {
             while( valid(0, 1) ) {
                 ++currentY;
             }
-            console.log("dropping?")
             clearInterval( interval );
-            var intervalLength = (Math.random() * 300) + 100; // up to 500
-            interval = setInterval( tick, intervalLength );
+            interval = setInterval( tick, 200 );
             tick();
             break;
     }

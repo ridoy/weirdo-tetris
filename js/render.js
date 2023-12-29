@@ -9,10 +9,10 @@ function drawBlock( x, y ) {
     ctx.strokeRect( BLOCK_W * x, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1 );
 }
 
-// draws the board and the moving shape
 function render() {
-    ctx.clearRect( 0, 0, W, H );
+    ctx.clearRect( 0, 0, W, H);
 
+    // Draw board outline
     ctx.strokeStyle = 'black';
     for ( var x = 0; x < COLS; ++x ) {
         for ( var y = 0; y < ROWS; ++y ) {
@@ -23,6 +23,15 @@ function render() {
         }
     }
 
+    // Draw grid
+    ctx.strokeStyle = 'lightgrey';
+    for ( var x = 0; x < COLS; ++x ) {
+        for ( var y = 0; y < ROWS; ++y ) {
+            ctx.strokeRect(BLOCK_W * x, BLOCK_H * y, BLOCK_W, BLOCK_H);
+        }
+    }
+
+    // Draw current shape
     ctx.fillStyle = 'red';
     ctx.strokeStyle = 'black';
     for ( var y = 0; y < 4; ++y ) {
