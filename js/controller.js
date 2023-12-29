@@ -5,7 +5,7 @@ window.addEventListener("keydown", function(e) {
 }, false);
 
 document.body.onkeydown = function( e ) {
-    var keys = {
+    let keys = {
         37: 'left',
         39: 'right',
         40: 'down',
