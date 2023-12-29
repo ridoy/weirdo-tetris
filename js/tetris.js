@@ -54,7 +54,7 @@ function newShape() {
 
 // clears the board
 function init() {
-    for ( var y = 0; y < ROWS; ++y ) {
+    for ( var y = 0; y < ROWS + VIRTUAL_ROWS; ++y ) {
         board[ y ] = [];
         for ( var x = 0; x < COLS; ++x ) {
             board[ y ][ x ] = 0;
@@ -114,7 +114,7 @@ function rotate( current ) {
 
 // check if any lines are filled and clear them
 function clearLines() {
-    for ( var y = ROWS - 1; y >= 0; --y ) {
+    for ( var y = ROWS - 1 + VIRTUAL_ROWS; y >= 0; --y ) {
         var rowFilled = true;
         for ( var x = 0; x < COLS; ++x ) {
             if ( board[ y ][ x ] == 0 ) {
@@ -168,9 +168,9 @@ function valid( offsetX, offsetY, newCurrent ) {
                   || typeof board[ y + offsetY ][ x + offsetX ] == 'undefined'
                   || board[ y + offsetY ][ x + offsetX ]
                   || x + offsetX < 0
-                  || y + offsetY >= ROWS
+                  || y + offsetY >= ROWS + VIRTUAL_ROWS
                   || x + offsetX >= COLS ) {
-                    if (offsetY == 1 && freezed) {
+                    if (offsetY <= 5 && freezed) {
                         lose = true; // lose if the current shape is settled at the top most row
                         document.getElementById('playbutton').disabled = false;
                     } 
