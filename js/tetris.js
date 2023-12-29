@@ -25,6 +25,8 @@ var colors = [
     'cyan', 'orange', 'blue', 'yellow', 'red', 'green', 'purple'
 ];
 var direction = 1;
+var score = 0;
+var intervalSpeed = 400; // ms
 
 // creates a new 4x4 shape in global variable 'current'
 // 4x4 so as to cover the size when the shape is rotated
@@ -114,6 +116,7 @@ function rotate( current ) {
 
 // check if any lines are filled and clear them
 function clearLines() {
+    var linesCleared = 0;
     for ( var y = ROWS - 1 + VIRTUAL_ROWS; y >= 0; --y ) {
         var rowFilled = true;
         for ( var x = 0; x < COLS; ++x ) {
@@ -123,6 +126,7 @@ function clearLines() {
             }
         }
         if ( rowFilled ) {
+            linesCleared++;
             document.getElementById( 'clearsound' ).play();
             for ( var yy = y; yy > 0; --yy ) {
                 for ( var x = 0; x < COLS; ++x ) {
@@ -131,6 +135,22 @@ function clearLines() {
             }
             ++y;
         }
+    }
+    updateScore(linesCleared);
+}
+
+function updateScore(linesCleared) {
+    switch (linesCleared) {
+        case 1:
+            score += 40; break;
+        case 2:
+            score += 100; break;
+        case 3:
+            score += 300; break;
+        case 4:
+            score += 1000; break;
+        default:
+            break;
     }
 }
 
@@ -147,7 +167,7 @@ function keyPress( key ) {
                 ++currentY;
             }
             clearInterval( interval );
-            interval = setInterval( tick, 200 );
+            interval = setInterval( tick, intervalSpeed );
             tick();
             break;
     }
@@ -193,7 +213,7 @@ function newGame() {
     init();
     newShape();
     lose = false;
-    interval = setInterval( tick, 200 );
+    interval = setInterval( tick, intervalSpeed );
 }
 
 function clearAllIntervals(){

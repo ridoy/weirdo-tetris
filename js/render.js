@@ -1,4 +1,5 @@
 var canvas = document.getElementsByTagName( 'canvas' )[ 0 ];
+var scoreDisplay = document.getElementById('score');
 var ctx = canvas.getContext( '2d' );
 var W = 300, H = 600;
 var VH = 120;
@@ -48,4 +49,6 @@ function render() {
     // Draw true losing boundary
     ctx.strokeStyle = 'grey';
     ctx.strokeRect(0, VH, W, 1);
+
+    scoreDisplay.innerText = score;
 }

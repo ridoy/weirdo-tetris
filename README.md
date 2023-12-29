@@ -6,7 +6,9 @@ TODO
 - [x] adding a grid
 - [ ] ghost block on the bottom so you can see where your block goes
 - [ ] and speed up the left/right movement the further you go along
-- [ ] also need score
+- [x] also need score
 - [x] and buttons for playing on mobile
 - [ ] zoom on mobile
 - [ ] mobile sizing
+- [ ] sweeten the UI
+- [ ] new block sliding bug
