@@ -1,7 +1,7 @@
 HTML5 Tetris
 
 TODO
-- [ ] gotta make it so the rectangle can't rotate
+- [ ] gotta make it so the square can't rotate
 - [x] also adding four virtual rows above for the incoming piece
 - [x] adding a grid
 - [ ] ghost block on the bottom so you can see where your block goes
@@ -9,6 +9,6 @@ TODO
 - [x] also need score
 - [x] and buttons for playing on mobile
 - [ ] zoom on mobile
-- [ ] mobile sizing
+- [~] mobile sizing
 - [ ] sweeten the UI
 - [ ] new block sliding bug
