@@ -11,4 +11,5 @@ TODO
 - [ ] zoom on mobile
 - [~] mobile sizing
 - [ ] sweeten the UI
-- [ ] new block sliding bug
+- [x] new block sliding bug
+- [ ] next piece display

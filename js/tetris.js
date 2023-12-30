@@ -5,7 +5,8 @@ var lose;
 var interval;
 var intervalRender;
 var current; // current moving shape
-var currentX, currentY; // position of current shape
+var currentX = 5;
+var currentY;
 var freezed; // is current shape settled on the board?
 var shapes = [
     [ 1, 1, 1, 1 ],
@@ -55,8 +56,15 @@ function newShape() {
     // new shape starts to move
     freezed = false;
     // position where the shape will evolve
-    currentX = 5;
     currentY = 0;
+
+    while (!valid()) {
+        if (direction == -1) {
+            currentX++
+        } else {
+            currentX--;
+        }
+    }
 }
 
 // clears the board
@@ -126,7 +134,7 @@ function rotate( current ) {
         }
     }
     updateGhostBlock();
-    
+
     return newCurrent;
 }
 
