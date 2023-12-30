@@ -1,4 +1,5 @@
 var COLS = 10, ROWS = 20, VIRTUAL_ROWS = 4;
+var TOTAL_ROWS = ROWS + VIRTUAL_ROWS;
 var board = [];
 var lose;
 var interval;
@@ -27,6 +28,9 @@ var colors = [
 var direction = 1;
 var score = 0;
 var intervalSpeed = 400; // ms
+var ghostBlock;
+var ghostBlockX;
+var ghostBlockY;
 
 // creates a new 4x4 shape in global variable 'current'
 // 4x4 so as to cover the size when the shape is rotated
@@ -88,6 +92,7 @@ function tick() {
         }
     }
 }
+
 
 // stop shape at its position and fix it to board
 function freeze() {

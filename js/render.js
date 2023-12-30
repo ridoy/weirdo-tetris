@@ -1,10 +1,12 @@
 var canvas = document.getElementsByTagName( 'canvas' )[ 0 ];
 var scoreDisplay = document.getElementById('score');
 var ctx = canvas.getContext( '2d' );
-var W = 300, H = 600;
-var VH = 120;
+var W = canvas.width
+var totalHeight = canvas.height;
+var H = (totalHeight / TOTAL_ROWS) * ROWS;
+var VH = (totalHeight / TOTAL_ROWS) * VIRTUAL_ROWS;
 var BLOCK_W = W / COLS, BLOCK_H = H / ROWS;
-var VIRTUAL_ROWS = 4;
+var VH = BLOCK_W * VIRTUAL_ROWS;
 
 // draw a single square at (x, y)
 function drawBlock( x, y ) {
@@ -45,6 +47,7 @@ function render() {
             }
         }
     }
+
 
     // Draw true losing boundary
     ctx.strokeStyle = 'grey';
