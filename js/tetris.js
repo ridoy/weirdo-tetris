@@ -29,8 +29,8 @@ var direction = 1;
 var score = 0;
 var intervalSpeed = 400; // ms
 var ghostBlock;
-var ghostBlockX;
-var ghostBlockY;
+var ghostBlockX = 0;
+var ghostBlockY = 0;
 
 // creates a new 4x4 shape in global variable 'current'
 // 4x4 so as to cover the size when the shape is rotated
@@ -91,6 +91,16 @@ function tick() {
             --currentX;
         }
     }
+    updateGhostBlock();
+}
+
+function updateGhostBlock() {
+    ghostBlock = current;
+    ghostBlockX = currentX;
+    ghostBlockY = 0;
+    while (ghostBlockValid()) {
+        ghostBlockY++;
+    }
 }
 
 
@@ -115,7 +125,8 @@ function rotate( current ) {
             newCurrent[ y ][ x ] = current[ 3 - x ][ y ];
         }
     }
-
+    updateGhostBlock();
+    
     return newCurrent;
 }
 
@@ -207,6 +218,27 @@ function valid( offsetX, offsetY, newCurrent ) {
     return true;
 }
 
+function ghostBlockValid() {
+    let offsetX = ghostBlockX;
+    let offsetY = ghostBlockY + 1;
+
+    for ( var y = 0; y < 4; ++y ) {
+        for ( var x = 0; x < 4; ++x ) {
+            if ( ghostBlock[ y ][ x ] ) {
+                if ( typeof board[ y + offsetY ] == 'undefined'
+                  || typeof board[ y + offsetY ][ x + offsetX ] == 'undefined'
+                  || board[ y + offsetY ][ x + offsetX ]
+                  || x + offsetX < 0
+                  || y + offsetY >= ROWS + VIRTUAL_ROWS
+                  || x + offsetX >= COLS ) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
 function playButtonClicked() {
     newGame();
     document.getElementById("playbutton").disabled = true;
@@ -217,6 +249,7 @@ function newGame() {
     intervalRender = setInterval( render, 30 );
     init();
     newShape();
+    updateGhostBlock();
     lose = false;
     interval = setInterval( tick, intervalSpeed );
 }

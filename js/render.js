@@ -9,8 +9,10 @@ var BLOCK_W = W / COLS, BLOCK_H = H / ROWS;
 var VH = BLOCK_W * VIRTUAL_ROWS;
 
 // draw a single square at (x, y)
-function drawBlock( x, y ) {
-    ctx.fillRect( BLOCK_W * x, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1 );
+function drawBlock( x, y, isGhost ) {
+    if (!isGhost) {
+        ctx.fillRect( BLOCK_W * x, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1 );
+    }
     ctx.strokeRect( BLOCK_W * x, BLOCK_H * y, BLOCK_W - 1 , BLOCK_H - 1 );
 }
 
@@ -36,6 +38,10 @@ function render() {
         }
     }
 
+    // Draw true losing boundary
+    ctx.strokeStyle = 'grey';
+    ctx.strokeRect(0, VH, W, 1);
+
     // Draw current shape
     ctx.fillStyle = 'red';
     ctx.strokeStyle = 'black';
@@ -43,15 +49,21 @@ function render() {
         for ( var x = 0; x < 4; ++x ) {
             if ( current[ y ][ x ] ) {
                 ctx.fillStyle = colors[ current[ y ][ x ] - 1 ];
-                drawBlock( currentX + x, currentY + y);
+                drawBlock( currentX + x, currentY + y,);
             }
         }
     }
 
-
-    // Draw true losing boundary
+    // Draw ghost block
     ctx.strokeStyle = 'grey';
-    ctx.strokeRect(0, VH, W, 1);
+    for ( var y = 0; y < 4; ++y ) {
+        for ( var x = 0; x < 4; ++x ) {
+            if ( ghostBlock[ y ][ x ] ) {
+                drawBlock( ghostBlockX + x, ghostBlockY + y, true);
+            }
+        }
+    }
+
 
     scoreDisplay.innerText = score;
 }
