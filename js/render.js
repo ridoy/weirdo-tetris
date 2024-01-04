@@ -1,12 +1,24 @@
 var canvas = document.getElementsByTagName( 'canvas' )[ 0 ];
 var scoreDisplay = document.getElementById('score');
 var ctx = canvas.getContext( '2d' );
+
+var hasTouchScreen = false;
+
+if ("maxTouchPoints" in navigator) {
+    hasTouchScreen = navigator.maxTouchPoints > 0;
+} 
+if (hasTouchScreen) {
+    canvas.width = "225px";
+    canvas.width = "540px";
+}
 var W = canvas.width
 var totalHeight = canvas.height;
 var H = (totalHeight / TOTAL_ROWS) * ROWS;
 var VH = (totalHeight / TOTAL_ROWS) * VIRTUAL_ROWS;
 var BLOCK_W = W / COLS, BLOCK_H = H / ROWS;
 var VH = BLOCK_W * VIRTUAL_ROWS;
+
+
 
 // draw a single square at (x, y)
 function drawBlock( x, y, isGhost ) {
@@ -17,18 +29,9 @@ function drawBlock( x, y, isGhost ) {
 }
 
 function render() {
+    ctx.fillStyle = 'white';
     ctx.clearRect( 0, 0, W, H + VH);
-
-    // Draw landed pieces
-    ctx.strokeStyle = 'black';
-    for ( var x = 0; x < COLS; ++x ) {
-        for ( var y = 0; y < ROWS + VIRTUAL_ROWS; ++y ) {
-            if ( board[ y ][ x ] ) {
-                ctx.fillStyle = colors[ board[ y ][ x ] - 1 ];
-                drawBlock( x, y );
-            }
-        }
-    }
+    ctx.fillRect(0, 0, W, H + VH);
 
     // Draw grid
     ctx.strokeStyle = 'lightgrey';
@@ -41,6 +44,17 @@ function render() {
     // Draw true losing boundary
     ctx.strokeStyle = 'grey';
     ctx.strokeRect(0, VH, W, 1);
+
+    // Draw landed pieces
+    ctx.strokeStyle = 'black';
+    for ( var x = 0; x < COLS; ++x ) {
+        for ( var y = 0; y < ROWS + VIRTUAL_ROWS; ++y ) {
+            if ( board[ y ][ x ] ) {
+                ctx.fillStyle = colors[ board[ y ][ x ] - 1 ];
+                drawBlock( x, y );
+            }
+        }
+    }
 
     // Draw current shape
     ctx.fillStyle = 'red';
@@ -55,7 +69,9 @@ function render() {
     }
 
     // Draw ghost block
-    ctx.strokeStyle = 'grey';
+    ctx.strokeStyle = 'gold';
+    ctx.shadowBlur = '10';
+    ctx.shadowColor = 'gold';
     for ( var y = 0; y < 4; ++y ) {
         for ( var x = 0; x < 4; ++x ) {
             if ( ghostBlock[ y ][ x ] ) {
@@ -63,7 +79,8 @@ function render() {
             }
         }
     }
-
+    ctx.shadowBlur = '0';
+    ctx.shadowColor = 'none';
 
     scoreDisplay.innerText = score;
 }

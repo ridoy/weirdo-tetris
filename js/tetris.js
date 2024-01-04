@@ -24,14 +24,21 @@ var shapes = [
       1, 1, 1 ]
 ];
 var colors = [
-    'cyan', 'orange', 'blue', 'yellow', 'red', 'green', 'purple'
+    '#dcb81c',
+    '#a4c4fc',
+    '#16a67d',
+    '#64ac8c',
+    '#a3c1d4',
+    '#33554d',
+    '#ce4a4a' // red
 ];
 var direction = 1;
 var score = 0;
-var intervalSpeed = 400; // ms
+var intervalSpeed = 1000; // ms
 var ghostBlock;
 var ghostBlockX = 0;
 var ghostBlockY = 0;
+var currentTurn = 0;
 
 // creates a new 4x4 shape in global variable 'current'
 // 4x4 so as to cover the size when the shape is rotated
@@ -106,8 +113,14 @@ function updateGhostBlock() {
     ghostBlock = current;
     ghostBlockX = currentX;
     ghostBlockY = 0;
+    var iterations = 0;
     while (ghostBlockValid()) {
         ghostBlockY++;
+        iterations++;
+        if (iterations > 25) {
+            console.log(iterations);
+            break; // TODO remove this when bug cause is found. We don't want to freeze the game for the ghost blocks' sake
+        }
     }
 }
 
@@ -184,6 +197,7 @@ function keyPress( key ) {
             var rotated = rotate( current );
             if ( valid( 0, 0, rotated ) ) {
                 current = rotated;
+                updateGhostBlock();
             }
             break;
         case 'drop':
@@ -191,6 +205,9 @@ function keyPress( key ) {
                 ++currentY;
             }
             clearInterval( interval );
+            currentTurn++;
+            intervalSpeed = Math.max(100, (-1 * 900 / 20) * currentTurn + 1000); // Fall from 1000ms turn 1 to 100ms turn 20 and stay at 100ms.
+            console.log(intervalSpeed);
             interval = setInterval( tick, intervalSpeed );
             tick();
             break;
