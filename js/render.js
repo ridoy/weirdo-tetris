@@ -34,6 +34,7 @@ function render() {
     ctx.fillRect(0, 0, W, H + VH);
 
     // Draw grid
+    ctx.lineWidth = 1;
     ctx.strokeStyle = 'lightgrey';
     for ( var x = 0; x < COLS; ++x ) {
         for ( var y = 0; y < ROWS + VIRTUAL_ROWS; ++y ) {
@@ -46,11 +47,12 @@ function render() {
     ctx.strokeRect(0, VH, W, 1);
 
     // Draw landed pieces
-    ctx.strokeStyle = 'black';
+    
     for ( var x = 0; x < COLS; ++x ) {
         for ( var y = 0; y < ROWS + VIRTUAL_ROWS; ++y ) {
             if ( board[ y ][ x ] ) {
                 ctx.fillStyle = colors[ board[ y ][ x ] - 1 ];
+                ctx.strokeStyle = ctx.fillStyle.substring(0, ctx.fillStyle.length - 4) + "1)";
                 drawBlock( x, y );
             }
         }
@@ -63,6 +65,7 @@ function render() {
         for ( var x = 0; x < 4; ++x ) {
             if ( current[ y ][ x ] ) {
                 ctx.fillStyle = colors[ current[ y ][ x ] - 1 ];
+                ctx.strokeStyle = ctx.fillStyle;
                 drawBlock( currentX + x, currentY + y,);
             }
         }
@@ -84,3 +87,4 @@ function render() {
 
     scoreDisplay.innerText = score;
 }
+
