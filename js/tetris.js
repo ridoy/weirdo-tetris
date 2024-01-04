@@ -206,7 +206,7 @@ function keyPress( key ) {
             }
             clearInterval( interval );
             currentTurn++;
-            intervalSpeed = Math.max(100, (-1 * 900 / 20) * currentTurn + 1000); // Fall from 1000ms turn 1 to 100ms turn 20 and stay at 100ms.
+            intervalSpeed = Math.max(100, (-1 * 400 / 30) * currentTurn + 500); // Fall from 1000ms turn 1 to 100ms turn 20 and stay at 100ms.
             console.log(intervalSpeed);
             interval = setInterval( tick, intervalSpeed );
             tick();

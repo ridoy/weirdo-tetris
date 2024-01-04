@@ -5,7 +5,7 @@ TODO
 - [x] also adding four virtual rows above for the incoming piece
 - [x] adding a grid
 - [x] ghost block on the bottom so you can see where your block goes
-- [ ] and speed up the left/right movement the further you go along
+- [x] and speed up the left/right movement the further you go along
 - [x] also need score
 - [x] and buttons for playing on mobile
 - [ ] zoom on mobile
