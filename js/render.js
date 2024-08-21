@@ -45,7 +45,6 @@ function render() {
     ctx.strokeRect(0, VH, W, 1);
 
     // Draw landed pieces
-    
     for ( var x = 0; x < COLS; ++x ) {
         for ( var y = 0; y < ROWS + VIRTUAL_ROWS; ++y ) {
             if ( board[ y ][ x ] ) {
