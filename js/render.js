@@ -18,8 +18,6 @@ var VH = (totalHeight / TOTAL_ROWS) * VIRTUAL_ROWS;
 var BLOCK_W = W / COLS, BLOCK_H = H / ROWS;
 var VH = BLOCK_W * VIRTUAL_ROWS;
 
-
-
 // draw a single square at (x, y)
 function drawBlock( x, y, isGhost ) {
     if (!isGhost) {

@@ -13,3 +13,8 @@ TODO
 - [ ] sweeten the UI
 - [x] new block sliding bug
 - [ ] next piece display
+
+NEW TODO
+- [ ] Fix game mechanics, including tuning the speedup and fixing rotation/game completion bugs
+- [ ] Make menu better, including instructions for how to play
+- [ ] Make more pretty
